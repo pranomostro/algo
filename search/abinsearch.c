@@ -1,0 +1,38 @@
+#include <stdlib.h>
+#include <stdint.h>
+
+#define MIDCALC ((float)(key-data[low])/(float)(data[high]-data[low]))*(float)(high-low)+low
+
+size_t search(uint32_t key, uint32_t* data, size_t len)
+{
+	if(len<=0||key<=data[0])
+		return 0;
+	else if(key>data[len-1])
+		return len;
+
+	signed int low, high, mid;
+	low=0;
+	high=len-1;
+	mid=MIDCALC;
+
+	while(low<=high&&data[mid]!=key)
+	{
+		if(data[low]>key)
+		{
+			mid=low-1;
+			break;
+		}
+		else if(data[high]<key)
+		{
+			mid=high+1;
+			break;
+		}
+
+		mid=MIDCALC;
+		if(data[mid]<key)
+			low=mid+1;
+		else
+			high=mid-1;
+	}
+	return data[mid]<key?mid+1:mid;
+}

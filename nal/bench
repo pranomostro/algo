@@ -1,0 +1,6 @@
+#!/usr/bin/env rc
+
+for(i in `{cat data/files}){
+	echo -n $i': '
+	time ./nalcat >[2=1] <$i >/dev/null | head -1 | awk '{ print $2 }'
+}
