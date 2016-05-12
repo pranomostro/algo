@@ -2,12 +2,12 @@
 
 mkdir -p data/single data/gen data/change
 
-for(i in `{seq 1 26})
+for(i in `{seq 1 28})
 	awk 'BEGIN { a="a"; for(i=0; i<='$i'; i++) a=a "" a; printf("%s\n", a) }' >data/single/$i
 
 gen zzz >data/gen/zzz
 gen zzzz >data/gen/zzzz
 gen zzzzz >data/gen/zzzzz
 
-awk 'BEGIN { a="a"; for(i=1; i<=26; i++) { print(a); a=a "" a; } }' >data/change/growing
+awk 'BEGIN { a="a"; for(i=1; i<=28; i++) { print(a); a=a "" a; } }' >data/change/growing
 tac data/change/growing >data/change/shrinking
