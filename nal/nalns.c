@@ -15,7 +15,7 @@ char* nalread(char* in, size_t* len, FILE* input)
 	{
 		if(count>=*(len)-3)
 		{
-			in=(char*)resize(in, sizeof(char)*(*len), sizeof(char)*(*len*2));
+			in=(char*)nalgrow(in, sizeof(char)*(*len), sizeof(char)*(*len*2));
 			if(in==NULL)
 				return in;
 			(*len)*=2;

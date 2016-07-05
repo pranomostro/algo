@@ -14,7 +14,7 @@ char* nalread(char* in, size_t* len, FILE* input)
 			break;
 		if(readpos[strnlen(readpos, *len)-1]=='\n')
 			break;
-		in=(char*)resize(in, sizeof(char)*(*len), sizeof(char)*((*len)*2));
+		in=(char*)nalgrow(in, sizeof(char)*(*len), sizeof(char)*((*len)*2));
 		(*len)*=2;
 		readlen=(*len)-strnlen(in, *len)-1;
 		readpos=in+strnlen(in, *len);
