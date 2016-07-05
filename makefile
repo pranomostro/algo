@@ -5,3 +5,5 @@ all:
 clean:
 	make -C nal clean
 	make -C search clean
+
+.PHONY: all clean
