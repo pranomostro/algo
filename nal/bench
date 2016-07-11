@@ -1,6 +1,16 @@
 #!/usr/bin/env rc
 
+nalt=`{mktemp '/tmp/nalt.XXXXXX'}
+
 for(i in `{cat data/files}){
 	echo -n $i': '
-	time ./nalcat >[1=2] <$i >/dev/null | head -1 | awk '{ print $2 }'
+	time ./nalcat >[1=2] <$i >$nalt | head -1 | awk '{ print $2 }'
+
+	if(! cmp $i $nalt) {
+		echo 'error: file '$i' not copied correctly.' >[1=2]
+		rm $nalt
+		exit 1
+	}
 }
+
+rm $nalt
