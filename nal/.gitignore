@@ -1,5 +1,6 @@
 nalcat
 
 data/
+!data/files
 
 res*
