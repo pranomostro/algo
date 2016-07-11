@@ -11,4 +11,5 @@ gen zzzzz >data/gen/zzzzz
 
 awk 'BEGIN { a="a"; for(i=1; i<=28; i++) { print(a); a=a "" a; } }' >data/change/growing
 tac data/change/growing >data/change/shrinking
-awk 'BEGIN { for(i=0; i<=32768; i++{ print(a); a=a "»ab«" } }' >data/change/slow
+awk 'BEGIN { for(i=0; i<=32768; i++) { print(a); a=a "»ab«" } }' >data/change/slow
+tac data/change/slow >data/change/slowdown
