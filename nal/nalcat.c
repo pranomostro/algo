@@ -11,7 +11,7 @@ int main(void)
 	char* s=calloc(len, sizeof(char));
 
 	while((s=nalread(s, &len, stdin))!=NULL)
-		printf(s);
+		fputs(s, stdout);
 	free(s);
 	return 0;
 }

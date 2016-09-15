@@ -3,7 +3,7 @@ BENCHFILES=data/single/1 data/single/2 data/single/3 data/single/4 data/single/5
 
 all: nalcat
 
-nalcat: nalcat.c nalgrow.c nalgl.c
+nalcat: nalcat.c nalgrow.c nalfg.c
 
 clean:
 	rm -f nalcat
