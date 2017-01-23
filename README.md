@@ -18,4 +18,4 @@ For building, just type
 License
 =======
 
-./COPYING
+./LICENSE
