@@ -7,9 +7,6 @@ char* nalread(char* in, size_t* len, FILE* input)
 
 	read=getline(&in, len, input);
 	if(read<=0)
-	{
-		free(in);
 		return NULL;
-	}
 	return in;
 }

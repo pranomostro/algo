@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-size_t search(uint32_t key, uint32_t* data, size_t len)
+size_t bfind(uint32_t key, uint32_t* data, size_t len)
 {
 	signed int low, high, mid;
 	low=0;

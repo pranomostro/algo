@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-size_t search(uint32_t key, uint32_t* data, size_t len)
+size_t efind1(uint32_t key, uint32_t* data, size_t len)
 {
 	if(len<=0||data[0]>=key)
 		return 0;

@@ -2,14 +2,16 @@
 
 nalt=`{mktemp '/tmp/nalt.XXXXXX'}
 
-for(i in `{cat data/files}){
-	echo -n $i': '
-	time ./nalcat >[1=2] <$i >$nalt |[2] head -1 | awk '{ print $2 }'
+for(i in (nalfg nalgl nalns nalsc)){
+	for(j in `{cat data/files}){
+		echo -n $i': '$j': '
+		time ./$i >[1=2] <$j >$nalt |[2] head -1 | awk '{ print $2 }'
 
-	if(! cmp $i $nalt) {
-		echo 'error: file '$i' not copied correctly.' >[1=2]
-		rm $nalt
-		exit 1
+		if(! cmp $j $nalt) {
+			echo 'error: file '$j' not copied correctly.' >[1=2]
+			rm $nalt
+			exit 1
+		}
 	}
 }
 
