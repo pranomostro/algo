@@ -41,5 +41,7 @@ data/gen/zzz \
 data/gen/zzzz \
 data/gen/zzzzz \
 data/change/growing \
-data/change/shrinking
+data/change/shrinking \
+data/change/slow \
+data/change/slowdown
 
