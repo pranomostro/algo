@@ -1,16 +1,18 @@
 include config.mk
 
-all: $(TARGET)
+all: $(BIN)
 
-$(TARGET): $(OBJ) $(HDR)
+$(BIN): $(OBJ)
+
+.o:
 	$(CC) $(LDFLAGS) -o $@ $(OBJ)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ): config.mk
+$(OBJ): $(CONF)
 
 clean:
-	rm -rf $(TARGET) $(OBJ)
+	rm -rf $(BIN) $(OBJ)
 
-.PHONY: all clean
+.PHONY: all clean install uninstall

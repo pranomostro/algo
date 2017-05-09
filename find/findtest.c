@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <time.h>
 
-#include "find.h"
+#include "findtest.h"
 
 #define LEN(x) (sizeof (x) / sizeof *(x))
 #define ROUNDS 256

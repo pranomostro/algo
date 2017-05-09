@@ -1,8 +1,12 @@
-#configuration makefile
+PREFIX=/usr/local
 
-CFLAGS=-Wall -Wextra -pedantic -g
-LDFLAGS=-g
+CC=cc
+AR=ar
+RANLIB=ranlib
 
-TARGET=find
-OBJ=bfind.o efind1.o ifind1.o find.o
-HDR=find.h
+CFLAGS=-Wall -Wextra -std=c99 -pedantic -O2
+LDFLAGS=-s
+
+BIN=findtest
+OBJ=$(BIN:=.o) bfind.o efind1.o ifind1.o
+CONF=config.mk findtest.h
