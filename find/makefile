@@ -3,6 +3,7 @@ include config.mk
 all: $(BIN)
 
 $(BIN): $(OBJ)
+$(OBJ): $(CONF)
 
 .o:
 	$(CC) $(LDFLAGS) -o $@ $(OBJ)
@@ -10,9 +11,7 @@ $(BIN): $(OBJ)
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ): $(CONF)
-
 clean:
 	rm -rf $(BIN) $(OBJ)
 
-.PHONY: all clean install uninstall
+.PHONY: all clean

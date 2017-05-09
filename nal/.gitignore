@@ -1,6 +1,8 @@
-nalcat
+nalfg
+nalgl
+nalns
+nalsc
+*.o
 
 data/
 !data/files
-
-res*

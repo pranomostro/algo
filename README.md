@@ -13,7 +13,7 @@ Building
 
 For building, just type
 
-    make
+	make
 
 License
 =======

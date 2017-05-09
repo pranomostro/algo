@@ -3,6 +3,7 @@ include config.mk
 all: $(BIN)
 
 $(BIN): $(OBJ)
+$(OBJ): $(CONF)
 
 nalgl: nalcat.o nalgl.o
 	$(CC) $(LDFLAGS) nalcat.o nalgl.o -o $@
@@ -15,8 +16,6 @@ nalsc: nalcat.o nalsc.o reallocarray.o
 
 .c.o:
 	$(CC) $(CFLAGS) -o $@ -c $<
-
-$(OBJ): $(CONF)
 
 clean:
 	rm -f $(BIN) $(OBJ) $(BENCHFILES)
