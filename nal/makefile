@@ -1,6 +1,8 @@
 include config.mk
 
-all: $(TARGET) $(OBJ)
+all: $(BIN)
+
+$(BIN): $(OBJ)
 
 nalgl: nalcat.o nalgl.o
 	$(CC) $(LDFLAGS) nalcat.o nalgl.o -o $@
@@ -12,20 +14,17 @@ nalsc: nalcat.o nalsc.o reallocarray.o
 	$(CC) $(LDFLAGS) nalcat.o nalsc.o reallocarray.o -o $@
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ): $(CONF)
 
 clean:
-	rm -rf $(TARGET) $(OBJ)
-	rm -rf data/change data/gen data/single
+	rm -f $(BIN) $(OBJ) $(BENCHFILES)
 
-bench: $(TARGET) benchgen
+bench: $(BIN) $(BENCHFILES)
 	./bench
 
-benchgen: $(BENCHFILES)
-
 $(BENCHFILES):
-	./benchgen
+	./benchgenerate
 
-.PHONY: all clean bench benchgen
+.PHONY: all clean bench
