@@ -6,7 +6,10 @@
 #include "find.h"
 
 #define LEN(x) (sizeof (x) / sizeof *(x))
-#define ROUNDS 2
+#define ROUNDS 256
+
+void measure_runtime(uint32_t* data, size_t len, size_t inc, size_t funcpos);
+void check_result(uint32_t* data, uint32_t key, size_t len, size_t res);
 
 typedef struct
 {
@@ -41,12 +44,76 @@ Findfunc funcs[]=
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	}
 };
 
+void measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos)
+{
+	int acc, i;
+	size_t res;
+	clock_t c1, c2;
+	uint32_t key;
+
+	acc=0;
+
+	for(i=0; i<ROUNDS; i++)
+	{
+		key=rand()%(len*inc);
+		c1=clock();
+		res=funcs[funcpos].find(key, data, len);
+		c2=clock();
+		acc+=c2-c1;
+
+		check_result(data, key, len, res);
+	}
+	printf("%s (len: %lu, inc: %lu) needed %d clocks for %d rounds\n", funcs[funcpos].name, len, inc, acc, ROUNDS);
+}
+
+void check_result(uint32_t* data, uint32_t key, size_t len, size_t res)
+{
+	/* check if the result is correct */
+	if(len<=2)
+	{
+		if((res==0&&data[res]<key)||
+		   (res==len&&data[len-1]>key)||
+		   (len>1&&(res<len&&(data[res]<key||data[res-1]>key))))
+		{
+			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[0]: %d",
+				key, res, len, data[0]);
+			if(len>1)
+				fprintf(stderr, " data[1]: %d", data[1]);
+			fprintf(stderr, ", exiting\n");
+			exit(1);
+		}
+	}
+	else
+	{
+		if(res==0&&data[res]<key)
+		{
+			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[0]: %d, data[1]: %d, exiting\n",
+				key, res, len, data[0], data[1]);
+			exit(2);
+		}
+		else if((res==len&&data[len-1]>key)||
+			(res==len-1&&data[len-2]>key))
+		{
+			fprintf(stderr, "blub\n");
+			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[%lu]: %d, data[%lu]: %d, exiting\n",
+				key, res, len, len-1, data[len-1], len-2, data[len-2]);
+			exit(3);
+		}
+		else if((res>0&&res<len-1)&&
+			(data[res]<key||data[res-1]>key))
+		{
+			fprintf(stderr, "blah\n");
+			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[%lu]: %d, data[%lu]: %d, data[%lu]: %d, exiting\n",
+				key, res, len, res-1, data[res-1], res, data[res], res+1, data[res+1]);
+			exit(4);
+		}
+	}
+}
+
 int main(void)
 {
-	size_t i, j, k, l, n, inc, res, acc;
-	clock_t t1, t2;
-	uint32_t key;
-	uint32_t* data=calloc(tests[LEN(tests)-1].len, sizeof(uint32_t));
+	size_t i, j, k, n, inc;
+	uint32_t* data=calloc(tests[LEN(tests)-1].len+1, sizeof(uint32_t));
 
 	srand((unsigned)time(NULL));
 
@@ -56,37 +123,7 @@ int main(void)
 			{
 				for(n=rand()%inc, k=0; k<tests[j].len; k++, n+=rand()%inc)
 					data[k]=n;
-				acc=0;
-				for(l=0; l<ROUNDS; l++)
-				{
-					key=rand()%(tests[j].len*inc);
-					t1=clock();
-					res=funcs[i].find(key, data, tests[j].len);
-					t2=clock();
-					acc+=t2-t1;
-
-					if(res==0&&data[0]<key)
-					{
-						fprintf(stderr, "key: %d, res: 0, data[0]: %d, data[1]: %d\n", key, data[0], data[1]);
-						exit(1);
-					}
-					else if((res==tests[j].len||res==tests[j].len-1)&&data[tests[j].len-1]>key)
-					{
-						fprintf(stderr, "key: %d, res: %lu, data[%lu]: %d, data[%lu]: %d\n",
-						key, res, tests[j].len-2, data[tests[j].len-2], tests[j].len-1,
-						data[tests[j].len-1]);
-						exit(2);
-					}
-					else if(data[res]<key||data[res-1]>key)
-					{
-						fprintf(stderr, "key: %d, res: %lu, data[%lu]: %d, data[%lu]: %d, data[%lu]: %d\n",
-						key, res, res-1, data[res-1], res, data[res], res+1, data[res+1]);
-						exit(3);
-					}
-				}
-				printf("%s (len: %lu, inc: %lu) needed %lu clocks for %d rounds\n",
-					funcs[i].name, tests[j].len, inc, acc, ROUNDS);
-
+				measuretime(data, tests[j].len, inc, i);
 			}
 	free(data);
 
