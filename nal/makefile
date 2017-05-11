@@ -21,7 +21,7 @@ clean:
 	rm -f $(BIN) $(OBJ) $(BENCHFILES)
 
 bench: $(BIN) $(BENCHFILES)
-	./bench
+	./benchrun
 
 $(BENCHFILES):
 	./benchgenerate
