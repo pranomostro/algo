@@ -36,6 +36,8 @@ BENCHFILES= \
 	data/single/24 \
 	data/single/25 \
 	data/single/26 \
+	data/single/27 \
+	data/single/28 \
 	data/gen/zzz \
 	data/gen/zzzz \
 	data/gen/zzzzz \
