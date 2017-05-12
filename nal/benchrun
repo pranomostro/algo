@@ -1,6 +1,6 @@
 #!/usr/bin/env rc
 
-nalt=`{mktemp '/tmp/XXXXXX.nalt'}
+nalt=`{mktemp '/tmp/nalt.XXXXXX'}
 
 for(i in (nalfg nalgl nalns nalsc)){
 	for(j in `{cat data/files}){
