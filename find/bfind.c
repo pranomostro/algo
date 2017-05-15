@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdint.h>
+
+#include "findtest.h"
 
 size_t bfind(uint32_t key, uint32_t* data, size_t len)
 {
-	size_t low, high, mid;
+	signed int low, high, mid;
 	low=0;
 	high=len-1;
 	mid=(low+high)/2;

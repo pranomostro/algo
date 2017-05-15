@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdint.h>
+
+#include "findtest.h"
 
 #define MIDCALC ((float)key-data[low])/((float)data[high]-data[low])*(double)(high-low)+low
 

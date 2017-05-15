@@ -1,5 +1,8 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
+
+#include "findtest.h"
 
 size_t efind1(uint32_t key, uint32_t* data, size_t len)
 {
