@@ -6,7 +6,7 @@
 
 size_t nalread(char** in, size_t* len, FILE* input)
 {
-	size_t readlen=(*len-1)/2, res, fw;
+	size_t readlen=(*len-1)/2, res=0, fw;
 	char* readpos=*in;
 
 	while(1)

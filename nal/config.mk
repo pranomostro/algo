@@ -2,8 +2,8 @@ PREFIX=/usr/local
 
 CC=cc
 
-CFLAGS=-D_POSIX_C_SOURCE=200809L -Wall -Wextra -std=c99 -pedantic -g
-LDFLAGS=
+CFLAGS=-D_POSIX_C_SOURCE=200809L -Wall -Wextra -std=c99 -pedantic -O2
+LDFLAGS=-s
 
 BIN=nalfg nalgl
 OBJ=$(BIN:=.o) nalcat.o reallocarray.o
