@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define MIDCALC ((float)(key-data[low])/(float)(data[high]-data[low]))*(float)(high-low)+low
+#define MIDCALC ((float)key-data[low])/((float)data[high]-data[low])*(double)(high-low)+low
 
 size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 {
@@ -10,7 +10,7 @@ size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 	else if(key>data[len-1])
 		return len;
 
-	signed int low, high, mid;
+	size_t low, high, mid;
 	low=0;
 	high=len-1;
 	mid=MIDCALC;

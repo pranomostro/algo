@@ -6,7 +6,7 @@
 #include "findtest.h"
 
 #define LEN(x) (sizeof (x) / sizeof *(x))
-#define ROUNDS 256
+#define ROUNDS 4096
 
 void measure_runtime(uint32_t* data, size_t len, size_t inc, size_t funcpos);
 void check_result(uint32_t* data, uint32_t key, size_t len, size_t res);
@@ -44,7 +44,7 @@ Findfunc funcs[]=
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	}
 };
 
-void measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos)
+int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos)
 {
 	int acc, i;
 	size_t res;
@@ -52,6 +52,8 @@ void measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos)
 	uint32_t key;
 
 	acc=0;
+
+	printf("%s (len: %lu, inc: %lu): ", funcs[funcpos].name, len, inc);
 
 	for(i=0; i<ROUNDS; i++)
 	{
@@ -63,7 +65,9 @@ void measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos)
 
 		check_result(data, key, len, res);
 	}
-	printf("%s (len: %lu, inc: %lu) needed %d clocks for %d rounds\n", funcs[funcpos].name, len, inc, acc, ROUNDS);
+	printf("%d clocks for %d rounds (%f clocks per round)\n",
+		acc, ROUNDS, (float)acc/(float)ROUNDS);
+	return acc;
 }
 
 void check_result(uint32_t* data, uint32_t key, size_t len, size_t res)
@@ -94,7 +98,6 @@ void check_result(uint32_t* data, uint32_t key, size_t len, size_t res)
 		else if((res==len&&data[len-1]>key)||
 			(res==len-1&&data[len-2]>key))
 		{
-			fprintf(stderr, "blub\n");
 			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[%lu]: %d, data[%lu]: %d, exiting\n",
 				key, res, len, len-1, data[len-1], len-2, data[len-2]);
 			exit(3);
@@ -102,7 +105,6 @@ void check_result(uint32_t* data, uint32_t key, size_t len, size_t res)
 		else if((res>0&&res<len-1)&&
 			(data[res]<key||data[res-1]>key))
 		{
-			fprintf(stderr, "blah\n");
 			fprintf(stderr, "key: %d, res: %lu, len: %lu, data[%lu]: %d, data[%lu]: %d, data[%lu]: %d, exiting\n",
 				key, res, len, res-1, data[res-1], res, data[res], res+1, data[res+1]);
 			exit(4);
@@ -112,19 +114,24 @@ void check_result(uint32_t* data, uint32_t key, size_t len, size_t res)
 
 int main(void)
 {
+	int total;
 	size_t i, j, k, n, inc;
 	uint32_t* data=calloc(tests[LEN(tests)-1].len+1, sizeof(uint32_t));
 
 	srand((unsigned)time(NULL));
 
 	for(i=0; i<LEN(funcs); i++)
+	{
+		total=0;
 		for(j=0; j<LEN(tests); j++)
 			for(inc=tests[j].maxinc; inc>1; inc>>=4)
 			{
 				for(n=rand()%inc, k=0; k<tests[j].len; k++, n+=rand()%inc)
 					data[k]=n;
-				measuretime(data, tests[j].len, inc, i);
+				total+=measuretime(data, tests[j].len, inc, i);
 			}
+		printf("%s needed %d rounds total\n", funcs[i].name, total);
+	}
 	free(data);
 
 	return 0;

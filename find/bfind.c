@@ -3,7 +3,7 @@
 
 size_t bfind(uint32_t key, uint32_t* data, size_t len)
 {
-	signed int low, high, mid;
+	size_t low, high, mid;
 	low=0;
 	high=len-1;
 	mid=(low+high)/2;
