@@ -1,8 +1,8 @@
 #!/usr/bin/env rc
 
-mkdir -p data/single data/gen data/change
+mkdir -p data/single data/gen data/change data/random
 
-for(i in `{seq 1 28})
+for(i in `{seq 20 28})
 	awk 'BEGIN { a="a"; for(i=0; i<='$i'; i++) a=a "" a; printf("%s\n", a) }' >data/single/$i
 
 gen zzz >data/gen/zzz
@@ -13,3 +13,10 @@ awk 'BEGIN { a="a"; for(i=1; i<=28; i++) { print(a); a=a "" a; } }' >data/change
 tac data/change/growing >data/change/shrinking
 awk 'BEGIN { for(i=0; i<=16384; i++) { print(a); a=a "»ab«" } }' >data/change/slow
 tac data/change/slow >data/change/slowdown
+
+dd 'if=/dev/urandom' 'bs=1K' 'count=1' | tr -d '\0' >data/random/k
+printf '\n' >>data/random/k
+dd 'if=/dev/urandom' 'bs=1M' 'count=1' | tr -d '\0' >data/random/m
+printf '\n' >>data/random/m
+dd 'if=/dev/urandom' 'bs=1G' 'count=1' | tr -d '\0' >data/random/g
+printf '\n' >>data/random/g

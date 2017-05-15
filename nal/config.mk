@@ -2,33 +2,14 @@ PREFIX=/usr/local
 
 CC=cc
 
-CFLAGS=-D_POSIX_C_SOURCE=200809L -Wall -Wextra -std=c99 -pedantic -O2
-LDFLAGS=-s
+CFLAGS=-D_POSIX_C_SOURCE=200809L -Wall -Wextra -std=c99 -pedantic -g
+LDFLAGS=
 
-BIN=nalfg nalgl nalns nalsc
+BIN=nalfg nalgl
 OBJ=$(BIN:=.o) nalcat.o reallocarray.o
 CONF=config.mk nal.h
 
 BENCHFILES= \
-	data/single/1 \
-	data/single/2 \
-	data/single/3 \
-	data/single/4 \
-	data/single/5 \
-	data/single/6 \
-	data/single/7 \
-	data/single/8 \
-	data/single/9 \
-	data/single/10 \
-	data/single/11 \
-	data/single/12 \
-	data/single/13 \
-	data/single/14 \
-	data/single/15 \
-	data/single/16 \
-	data/single/17 \
-	data/single/18 \
-	data/single/19 \
 	data/single/20 \
 	data/single/21 \
 	data/single/22 \
@@ -44,5 +25,7 @@ BENCHFILES= \
 	data/change/growing \
 	data/change/shrinking \
 	data/change/slow \
-	data/change/slowdown
-
+	data/change/slowdown \
+	data/random/k \
+	data/random/m \
+	data/random/g

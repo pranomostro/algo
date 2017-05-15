@@ -2,7 +2,7 @@
 
 nalt=`{mktemp '/tmp/nalt.XXXXXX'}
 
-for(i in (nalfg nalgl nalns nalsc)){
+for(i in (nalfg nalgl)){
 	for(j in `{cat data/files}){
 		echo -n $i': '$j': '
 		time ./$i >[1=2] <$j >$nalt |[2] head -1 | awk '{ print $2 }'
