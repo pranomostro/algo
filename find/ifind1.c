@@ -16,7 +16,7 @@ size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 	size_t low, high, mid;
 	low=0;
 	high=len-1;
-	mid=MIDCALC;
+	mid=midcalc(data, key, high, low);
 
 	while(low<=high&&data[mid]!=key)
 	{
@@ -31,7 +31,7 @@ size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 			break;
 		}
 
-		mid=MIDCALC;
+		mid=midcalc(data, key, high, low);
 		if(data[mid]<key)
 			low=mid+1;
 		else

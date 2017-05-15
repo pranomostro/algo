@@ -41,6 +41,7 @@ Findfunc funcs[]=
 {
 	{ .find=bfind,	.name="bfind",	.desc="binary find"		},
 	{ .find=efind1,	.name="efind1",	.desc="estimating find 1"	},
+	{ .find=efind2,	.name="efind2",	.desc="estimating find 2"	},
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	},
 	{ .find=lfind,	.name="lfind",	.desc="linear find"		}
 };
