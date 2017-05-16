@@ -3,7 +3,7 @@
 
 #include "nal.h"
 
-const size_t INITLEN=5;
+const size_t INITLEN=BUFSIZ;
 
 int main(void)
 {
