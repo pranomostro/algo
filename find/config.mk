@@ -3,8 +3,8 @@ PREFIX=/usr/local
 CC=cc
 
 CFLAGS=-Wall -Wextra -std=c99 -pedantic -O2
-LDFLAGS=-s
+LDFLAGS=-lm -s
 
 BIN=findtest
-OBJ=$(BIN:=.o) bfind.o efind1.o efind2.o ifind1.o lfind.o midcalc.o
+OBJ=$(BIN:=.o) bfind.o efind1.o efind2.o ifind1.o ifind2.o midcalc.o
 CONF=config.mk findtest.h
