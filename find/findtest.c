@@ -9,7 +9,6 @@
 #define LEN(x) (sizeof (x) / sizeof *(x))
 
 void measure_runtime(uint32_t* data, size_t len, size_t inc, size_t funcpos);
-void check_result(uint32_t* data, uint32_t key, size_t len, size_t res);
 
 typedef struct
 {

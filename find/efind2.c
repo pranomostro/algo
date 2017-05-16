@@ -9,7 +9,7 @@ size_t efind2(uint32_t key, uint32_t* data, size_t len)
 		return 0;
 	else if(data[len-1]<=key)
 		return len;
-	size_t d, mid=midcalc(data, key, len-1, 0);
+	size_t d, mid=midcalc(key, data, len-1, 0);
 	for(d=(data[mid]<key?1:-1); !(data[mid]>=key&&data[mid-1]<=key); mid+=d);
 	return mid;
 }

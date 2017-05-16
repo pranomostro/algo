@@ -3,8 +3,6 @@
 
 #include "findtest.h"
 
-#define MIDCALC ((float)key-data[low])/((float)data[high]-data[low])*(double)(high-low)+low
-
 size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 {
 	if(len<=0||key<=data[0])
@@ -15,7 +13,7 @@ size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 	size_t low, high, mid;
 	low=0;
 	high=len-1;
-	mid=midcalc(data, key, high, low);
+	mid=midcalc(key, data, high, low);
 
 	while(low<=high&&data[mid]!=key)
 	{
@@ -30,7 +28,7 @@ size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 			break;
 		}
 
-		mid=midcalc(data, key, high, low);
+		mid=midcalc(key, data, high, low);
 		if(data[mid]<key)
 			low=mid+1;
 		else
