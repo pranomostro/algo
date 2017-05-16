@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
-#include <assert.h>
 
 #include "findtest.h"
 
@@ -11,6 +10,7 @@ size_t ifind2(uint32_t key, uint32_t* data, size_t len)
 		return 0;
 	else if(data[len-1]<=key)
 		return len;
+
 	size_t low=0, mid, high=len-1;
 
 	while(low<high)

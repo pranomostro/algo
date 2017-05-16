@@ -3,15 +3,13 @@
 
 #include "findtest.h"
 
-size_t bfind(uint32_t key, uint32_t* data, size_t len)
+size_t bfind1(uint32_t key, uint32_t* data, size_t len)
 {
-	signed int low, high, mid;
-	low=0;
-	high=len-1;
-	mid=(low+high)/2;
-
-	if(len<=0)
+	if(len==0)
 		return 0;
+
+	signed int low=0, high=len-1, mid;
+	mid=(low+high)/2;
 
 	while(low<=high&&data[mid]!=key)
 	{

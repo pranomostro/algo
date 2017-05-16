@@ -38,7 +38,8 @@ Findtest tests[]=
 
 Findfunc funcs[]=
 {
-	{ .find=bfind,	.name="bfind",	.desc="binary find"		},
+	{ .find=bfind1,	.name="bfind1",	.desc="binary find 1"		},
+	{ .find=bfind2,	.name="bfind2",	.desc="binary find 2"		},
 	{ .find=efind1,	.name="efind1",	.desc="estimating find 1"	},
 	{ .find=efind2,	.name="efind2",	.desc="estimating find 2"	},
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	},
@@ -64,8 +65,9 @@ int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t t
 		c2=clock();
 		acc+=c2-c1;
 
+		assert(res<=len);
 		assert(res==len||data[res]>=key);
-		assert(len<2||res==0||(res>0&&data[res-1]<=key));
+		assert(res==0||data[res-1]<=key);
 	}
 	//printf("%d clocks for %d rounds (%f clocks per round)\n",
 	//	acc, ROUNDS, (float)acc/(float)tests[testpos].rounds);

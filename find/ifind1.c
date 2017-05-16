@@ -5,15 +5,12 @@
 
 size_t ifind1(uint32_t key, uint32_t* data, size_t len)
 {
-	if(len<=0||key<=data[0])
+	if(len==0||data[0]>=key)
 		return 0;
-	else if(key>data[len-1])
+	else if(data[len-1]<=key)
 		return len;
 
-	size_t low, high, mid;
-	low=0;
-	high=len-1;
-	mid=midcalc(key, data, high, low);
+	size_t low=0, high=len-1, mid=midcalc(key, data, len-1, 0);
 
 	while(low<=high&&data[mid]!=key)
 	{
