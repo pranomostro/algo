@@ -21,19 +21,21 @@ typedef struct
 	const char* name, * desc;
 } Findfunc;
 
+/* don't touch .len and .maxinc. .rounds can be changed by liking */
+
 Findtest tests[]=
 {
-	{ .len=1,	.maxinc=1<<28,	.rounds=1<<16	},
-	{ .len=2,	.maxinc=1<<28,	.rounds=1<<16	},
-	{ .len=3,	.maxinc=1<<28,	.rounds=1<<16	},
-	{ .len=4,	.maxinc=1<<28,	.rounds=1<<16	},
-	{ .len=1<<4,	.maxinc=1<<28,	.rounds=1<<16	},
-	{ .len=1<<8,	.maxinc=1<<24,	.rounds=1<<16	},
-	{ .len=1<<12,	.maxinc=1<<20,	.rounds=1<<16	},
-	{ .len=1<<16,	.maxinc=1<<16,	.rounds=1<<16	},
-	{ .len=1<<20,	.maxinc=1<<12,	.rounds=1<<16	},
-	{ .len=1<<24,	.maxinc=1<<8,	.rounds=1<<16	},
-	{ .len=1<<28,	.maxinc=1<<4,	.rounds=1<<16	}
+	{ .len=1,	.maxinc=1<<28,	.rounds=1<<12	},
+	{ .len=2,	.maxinc=1<<28,	.rounds=1<<12	},
+	{ .len=3,	.maxinc=1<<28,	.rounds=1<<12	},
+	{ .len=4,	.maxinc=1<<28,	.rounds=1<<12	},
+	{ .len=1<<4,	.maxinc=1<<28,	.rounds=1<<12	},
+	{ .len=1<<8,	.maxinc=1<<24,	.rounds=1<<12	},
+	{ .len=1<<12,	.maxinc=1<<20,	.rounds=1<<12	},
+	{ .len=1<<16,	.maxinc=1<<16,	.rounds=1<<12	},
+	{ .len=1<<20,	.maxinc=1<<12,	.rounds=1<<12	},
+	{ .len=1<<24,	.maxinc=1<<8,	.rounds=1<<12	},
+	{ .len=1<<28,	.maxinc=1<<4,	.rounds=1<<12	}
 };
 
 Findfunc funcs[]=
@@ -69,8 +71,8 @@ int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t t
 		assert(res==len||data[res]>=key);
 		assert(res==0||data[res-1]<=key);
 	}
-	//printf("%d clocks for %d rounds (%f clocks per round)\n",
-	//	acc, ROUNDS, (float)acc/(float)tests[testpos].rounds);
+	//printf("%d clocks for %lu rounds (%f clocks per round)\n",
+	//	acc, tests[testpos].rounds, (float)acc/(float)tests[testpos].rounds);
 	return acc;
 }
 
@@ -86,7 +88,7 @@ int main(void)
 	{
 		total=0;
 		for(j=0; j<LEN(tests); j++)
-			for(inc=tests[j].maxinc; inc>1; inc>>=4)
+			for(inc=tests[j].maxinc; inc>1; inc>>=2)
 			{
 				for(n=rand()%inc, k=0; k<tests[j].len; k++, n+=rand()%inc)
 					data[k]=n;
