@@ -9,6 +9,7 @@
 #define LEN(x) (sizeof (x) / sizeof *(x))
 
 void measure_runtime(uint32_t* data, size_t len, size_t inc, size_t funcpos);
+void check_result(uint32_t* data, uint32_t key, size_t len, size_t res);
 
 typedef struct
 {
@@ -17,7 +18,7 @@ typedef struct
 
 typedef struct
 {
-	size_t (*find)(uint32_t*, uint32_t, size_t);
+	size_t (*find)(uint32_t key, uint32_t* data, size_t len);
 	const char* name, * desc;
 } Findfunc;
 
@@ -60,7 +61,7 @@ int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t t
 	{
 		key=rand()%(len*inc);
 		c1=clock();
-		res=funcs[funcpos].find(data, key, len);
+		res=funcs[funcpos].find(key, data, len);
 		c2=clock();
 		acc+=c2-c1;
 

@@ -5,7 +5,7 @@
 
 #include "findtest.h"
 
-size_t ifind2(uint32_t* data, uint32_t key, size_t len)
+size_t ifind2(uint32_t key, uint32_t* data, size_t len)
 {
 	if(len==0||data[0]>=key)
 		return 0;
