@@ -12,10 +12,12 @@ size_t ifind2(uint32_t key, uint32_t* data, size_t len)
 		return len;
 
 	size_t low=0, mid, high=len-1;
+	double kld, hld, hl;
 
 	while(low<high)
 	{
-		mid=ceil(((double)key-data[low])/((double)data[high]-data[low])*((double)high-low))+low;
+		kld=key-data[low], hld=data[high]-data[low], hl=high-low;
+		mid=((size_t)kld/hld*hl)+low+1;
 
 		if(data[mid]>=key&&data[mid-1]<=key)
 			return mid;
