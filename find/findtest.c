@@ -45,7 +45,8 @@ Findfunc funcs[]=
 	{ .find=efind1,	.name="efind1",	.desc="estimating find 1"	},
 	{ .find=efind2,	.name="efind2",	.desc="estimating find 2"	},
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	},
-	{ .find=ifind2,	.name="ifind2",	.desc="interpolating find 2"	}
+	{ .find=ifind2,	.name="ifind2",	.desc="interpolating find 2"	},
+	{ .find=qfind1,	.name="qfind1",	.desc="quadratic binary find"	}
 };
 
 int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t testpos)
