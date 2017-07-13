@@ -12,7 +12,7 @@ size_t ifind2(uint32_t key, uint32_t* data, size_t len)
 		return len;
 
 	size_t low=0, mid, high=len-1;
-	double kld, hld, hl;
+	double hl, kld, hld;
 
 	while(low<high)
 	{

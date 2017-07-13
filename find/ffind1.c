@@ -12,12 +12,10 @@ size_t ffind1(uint32_t key, uint32_t* data, size_t len)
 
 	size_t low=0, high=len-1, mid, est, up, down;
 
-	while(1)
+	while(!(low>0&&data[low]>=key&&data[low-1]<=key))
 	{
-		if(low>0&&data[low]>=key&&data[low-1]<=key)
-			return low;
 		mid=(low+high)/2;
-		if(mid>0&&data[mid]>=key&&data[mid-1]<=key)
+		if(data[mid]>=key&&data[mid-1]<=key)
 			return mid;
 		est=midcalc(key, data, high, low);
 		if(est>0&&data[est]>=key&&data[est-1]<=key)
@@ -35,4 +33,5 @@ size_t ffind1(uint32_t key, uint32_t* data, size_t len)
 		else
 			low=down+1, high=up-1;
 	}
+	return low;
 }
