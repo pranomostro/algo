@@ -19,9 +19,12 @@ BENCHFILES= \
 	data/single/26 \
 	data/single/27 \
 	data/single/28 \
+	data/single/29 \
+	data/single/30 \
 	data/gen/zzz \
 	data/gen/zzzz \
 	data/gen/zzzzz \
+	data/gen/zzzzzz \
 	data/change/growing \
 	data/change/shrinking \
 	data/change/slow \
