@@ -6,7 +6,7 @@ for(j in `{cat data/files}){
 	echo $j':'
 	for(i in (nalfg nalgl)){
 		echo -n $i': '
-		time ./$i >[1=2] <$j >$nalt |[2] head -1 | awk '{ print $3 }'
+		time -p ./$i >[1=2] <$j >$nalt |[2] head -1 | awk '{ print $3 }'
 
 		if(! cmp $j $nalt) {
 			echo 'error: file '$j' not copied correctly.' >[1=2]
