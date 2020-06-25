@@ -25,28 +25,30 @@ typedef struct
 
 Findtest tests[]=
 {
-	{ .len=1,	.maxinc=1<<28,	.rounds=1<<12	},
-	{ .len=2,	.maxinc=1<<28,	.rounds=1<<12	},
-	{ .len=3,	.maxinc=1<<28,	.rounds=1<<12	},
-	{ .len=4,	.maxinc=1<<28,	.rounds=1<<12	},
-	{ .len=1<<4,	.maxinc=1<<28,	.rounds=1<<12	},
-	{ .len=1<<8,	.maxinc=1<<24,	.rounds=1<<12	},
-	{ .len=1<<12,	.maxinc=1<<20,	.rounds=1<<12	},
-	{ .len=1<<16,	.maxinc=1<<16,	.rounds=1<<12	},
-	{ .len=1<<20,	.maxinc=1<<12,	.rounds=1<<12	},
-	{ .len=1<<24,	.maxinc=1<<8,	.rounds=1<<12	},
-	{ .len=1<<28,	.maxinc=1<<4,	.rounds=1<<12	}
+	{ .len=1,	.maxinc=1<<28,	.rounds=1<<16	},
+	{ .len=2,	.maxinc=1<<28,	.rounds=1<<16	},
+	{ .len=3,	.maxinc=1<<28,	.rounds=1<<16	},
+	{ .len=4,	.maxinc=1<<28,	.rounds=1<<16	},
+	{ .len=1<<4,	.maxinc=1<<28,	.rounds=1<<16	},
+	{ .len=1<<8,	.maxinc=1<<24,	.rounds=1<<16	},
+	{ .len=1<<12,	.maxinc=1<<20,	.rounds=1<<16	},
+	{ .len=1<<16,	.maxinc=1<<16,	.rounds=1<<16	},
+	{ .len=1<<20,	.maxinc=1<<12,	.rounds=1<<16	},
+	{ .len=1<<24,	.maxinc=1<<8,	.rounds=1<<16	},
+	{ .len=1<<28,	.maxinc=1<<4,	.rounds=1<<16	}
 };
 
 Findfunc funcs[]=
 {
 	{ .find=bfind1,	.name="bfind1",	.desc="binary find 1"		},
 	{ .find=bfind2,	.name="bfind2",	.desc="binary find 2"		},
+	{ .find=bfind3,	.name="bfind3",	.desc="native binary find"	},
 	{ .find=efind1,	.name="efind1",	.desc="estimating find 1"	},
 	{ .find=efind2,	.name="efind2",	.desc="estimating find 2"	},
 	{ .find=ffind1, .name="ffind1", .desc="fast find"		},
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	},
 	{ .find=ifind2,	.name="ifind2",	.desc="interpolating find 2"	},
+	{ .find=lfind1, .name="lfind1", .desc="native linear find"	},
 	{ .find=qfind1,	.name="qfind1",	.desc="quadratic binary find"	}
 };
 
@@ -59,7 +61,7 @@ int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t t
 
 	acc=0;
 
-	//printf("%s (len: %lu, inc: %lu): ", funcs[funcpos].name, len, inc);
+	printf("%s (len: %lu, inc: %lu): ", funcs[funcpos].name, len, inc);
 
 	for(i=0; i<tests[testpos].rounds; i++)
 	{
@@ -73,8 +75,8 @@ int measuretime(uint32_t* data, size_t len, size_t inc, size_t funcpos, size_t t
 		assert(res==len||data[res]>=key);
 		assert(res==0||data[res-1]<=key);
 	}
-	//printf("%d clocks for %lu rounds (%f clocks per round)\n",
-	//	acc, tests[testpos].rounds, (float)acc/(float)tests[testpos].rounds);
+	printf("%d clocks for %lu rounds (%f clocks per round)\n",
+		acc, tests[testpos].rounds, (float)acc/(float)tests[testpos].rounds);
 	return acc;
 }
 
