@@ -42,13 +42,11 @@ Findfunc funcs[]=
 {
 	{ .find=bfind1,	.name="bfind1",	.desc="binary find 1"		},
 	{ .find=bfind2,	.name="bfind2",	.desc="binary find 2"		},
-	{ .find=bfind3,	.name="bfind3",	.desc="native binary find"	},
 	{ .find=efind1,	.name="efind1",	.desc="estimating find 1"	},
 	{ .find=efind2,	.name="efind2",	.desc="estimating find 2"	},
 	{ .find=ffind1, .name="ffind1", .desc="fast find"		},
 	{ .find=ifind1,	.name="ifind1",	.desc="interpolating find 1"	},
 	{ .find=ifind2,	.name="ifind2",	.desc="interpolating find 2"	},
-	{ .find=lfind1, .name="lfind1", .desc="native linear find"	},
 	{ .find=qfind1,	.name="qfind1",	.desc="quadratic binary find"	}
 };
 
